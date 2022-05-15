@@ -9,13 +9,13 @@ public class LogsLoaderTest {
 
     @Test
     void shouldLoadRecordsFromLogsFile() {
-        List<LogRecord> logsList = LogsLoader.loadLogs("testLogsFile.txt");
+        List<LogRecord> logsList = LogsLoader.loadLogs("./src/test/resources/testLogsFile.txt");
         Assertions.assertEquals(7, logsList.size());
     }
 
     @Test
     void shouldLoadAnSortLogsRecords() {
-        List<LogRecord> logsList = LogsLoader.loadLogs("testLogsFile.txt");
+        List<LogRecord> logsList = LogsLoader.loadLogs("./src/test/resources/testLogsFile.txt");
         Assertions.assertEquals("1", logsList.get(0).id);
         Assertions.assertEquals("26", logsList.get(1).id);
         Assertions.assertEquals("26",logsList.get(2).id);
