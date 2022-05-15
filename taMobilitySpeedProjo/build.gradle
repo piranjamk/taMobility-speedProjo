@@ -9,6 +9,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -21,4 +22,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.example.Main',
+                'Class-Path': configurations.runtimeClasspath.collect { it.name }.join(' ')
+        )
+    }
 }
