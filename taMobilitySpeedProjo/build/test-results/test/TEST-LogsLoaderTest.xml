@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LogsLoaderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-05-15T23:11:29" hostname="DESKTOP-HN6EKH3" time="0.06">
+  <properties/>
+  <testcase name="shouldLoadRecordsFromLogsFile()" classname="LogsLoaderTest" time="0.058"/>
+  <testcase name="shouldLoadAnSortLogsRecords()" classname="LogsLoaderTest" time="0.002"/>
+  <system-out><![CDATA[1, test state, test type, test host, 1491377495216
+26, test state, test type, test host, 1491377495216
+26, test state, test type, test host, 1491377495216
+5, test state, test type, test host, 1491377495216
+5, test state, test type, test host, 1491377495218
+abc, test state, test type, test host, 1491377495216
+abc, test state, test type, test host, 1491377495258
+1, test state, test type, test host, 1491377495216
+26, test state, test type, test host, 1491377495216
+26, test state, test type, test host, 1491377495216
+5, test state, test type, test host, 1491377495216
+5, test state, test type, test host, 1491377495218
+abc, test state, test type, test host, 1491377495216
+abc, test state, test type, test host, 1491377495258
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

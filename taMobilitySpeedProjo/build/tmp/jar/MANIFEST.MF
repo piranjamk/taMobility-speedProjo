@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: gson-2.9.0.jar hsqldb-2.3.3.jar log4j-core-2.17.2.jar log4
+ j-api-2.17.2.jar
+Main-Class: org.example.Main
+
