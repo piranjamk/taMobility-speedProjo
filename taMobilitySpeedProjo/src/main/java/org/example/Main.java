@@ -12,43 +12,48 @@ public class Main {
     private static final Logger LOGS = LogManager.getLogger("Main");
     public static void main(String[] args) {
 
-        List<LogRecord> logsList = LogsLoader.loadLogs("C:\\Users\\piran\\Desktop\\tamobilityspeedprojo\\taMobility-speedProjo\\taMobilitySpeedProjo\\src\\test\\resources\\testLogsFile.txt");
-        System.out.println("Hello world!");
+        if (args.length == 0)
+        {
+            LOGS.fatal("No logsFile specified as entry parameter!");
+            System.exit(0);
+        }
+        List<LogRecord> logsList = LogsLoader.loadLogs(args[0]);
         LOGS.info("Start!");
 
         Connection con;
         Statement stmt;
         try {
             Class.forName("org.hsqldb.jdbc.JDBCDriver");
-            con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/tademo", "SA", "");
+            con = DriverManager.getConnection("jdbc:hsqldb:file:tademo", "SA", "");
 
             if (con!= null)
             {
                 stmt = con.createStatement();
-//REMOVE - TEMPORARY
-//FOR TESTING PURPOSES ONLY
-                //stmt.executeUpdate("DROP TABLE "+tablename);
 
                 DatabaseMetaData dbm = con.getMetaData();
                 // check if table exists
                 ResultSet tables = dbm.getTables(null, null, dataBaseTableName, null);
                 if (tables.next()) {
                     System.out.println("Table exists");
+                    LOGS.info("Table exists");
                 }
                 else
                 {
+                    LOGS.info("Table does not exists in database.");
                     stmt.executeUpdate("CREATE TABLE "+dataBaseTableName+" ( id VARCHAR(20) NOT NULL, state VARCHAR(50) NOT NULL, host VARCHAR(50), duration INT, alert BIT, PRIMARY KEY (id));  ");
+                    LOGS.info("Table created");
                 }
 
                 //----------------    insert into database     -------------------------------------------------------------------------------
                 if (logsList.isEmpty()) {
+                    LOGS.info("Log file iis empty - nothing to process");
                 }
                 int currentIndex = logsList.size() -  1;
                 while(currentIndex >= 0)
                 {
                     if (currentIndex == 0)
                     {
-                        System.out.println("There is no pair for record id: " + logsList.get(0).id);
+                        LOGS.warn("There is no pair for record id: " + logsList.get(0).id);
                         break;
                     }
 
@@ -56,26 +61,28 @@ public class Main {
                     LogRecord secondEntry = logsList.get(currentIndex - 1);
                     if (!firstEntry.id.equals(secondEntry.id))
                     {
+                        LOGS.warn("There is only single entry for id:" + firstEntry.id);
                         currentIndex--;
                     }
                     else
                     {
+                        LOGS.info("inserting logs | log id::" + firstEntry.id);
                         String insertString = "INSERT INTO "+dataBaseTableName+"  VALUES ('"+firstEntry.id+"', '"+firstEntry.state+"', '"+firstEntry.host+"', "+( Math.abs(firstEntry.timeStamp - secondEntry.timeStamp))+", "+ (Math.abs(firstEntry.timeStamp - secondEntry.timeStamp) > 4) + ")";
                         stmt.executeUpdate(insertString);
                         con.commit();
-                        currentIndex-=2;        //id VARCHAR(20) NOT NULL, state VARCHAR(50) NOT NULL,  type VARCHAR(20), host VARCHAR(50), timeStamp INT, alert BIT, PRIMARY KEY (id));  ");
+                        LOGS.info("Log saved in database");
+                        currentIndex-=2;
                     }
                 }
                 //print select from database
-                System.out.println("\n\n\n\n");
                 ResultSet result;
                 result = stmt.executeQuery(
                         "SELECT * FROM "+ dataBaseTableName);
 
 
-                System.out.println("Listing:");
+                LOGS.debug("\n\n\n\nListing:");
                 while(result.next()){
-                    System.out.println(result.getString("id")+" | "+
+                    LOGS.debug(result.getString("id")+" | "+
                             result.getString("state")+" | "+
                             result.getString("host")+" | "+
                             result.getString("duration")+" | "+
@@ -83,14 +90,15 @@ public class Main {
                 }
             } else
             {
-                System.out.println("Problem with creating connection");
+                LOGS.fatal("Problem with creating connection");
             }
         }
         catch (Exception e)
         {
-            e.printStackTrace(System.out);
+            LOGS.fatal("Program failed. Not connected to DB");
+            LOGS.fatal(e.getMessage());
         }
 
-        System.out.println("Done!");
+        LOGS.info("Done!");
     }
 }
