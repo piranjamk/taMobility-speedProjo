@@ -20,6 +20,8 @@ important TODOs:
 -load records, process and save into DB
 -use threads
 
+//add gitignore
+
 
 
 
