@@ -13,6 +13,8 @@ important TODOs:
 
 //split Main blob into separate classes | improve code quality, use threads
 
+//batch/bulk DB insert + preparedStatement
+
 //prepare gradle, fat jar
 
 //add more UT
