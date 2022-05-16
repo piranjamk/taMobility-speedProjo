@@ -7,6 +7,8 @@ for example: java -jar taMobilitySpeedProjo-1.0-SNAPSHOT.jar "logsFile.txt"
 
 ## java1.8.0_202 | gradle project   |||   created with IntelliJ IDEA : latest version
 
+src folder: source code and UT
+
 important TODOs:
 
 //split Main blob into separate classes | improve code quality, use threads
