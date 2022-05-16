@@ -1,7 +1,7 @@
 # taMobility-speedProjo
 
 
-to run project get files from [libs folder](https://www.google.com)  (example log file included) and run: java -jar taMobilitySpeedProjo-1.0-SNAPSHOT.jar "yourLogsFileName.txt" 
+to run project get files from [libs folder](https://github.com/piranjamk/taMobility-speedProjo/tree/main/taMobilitySpeedProjo/build/libs)  (example log file included) and run: java -jar taMobilitySpeedProjo-1.0-SNAPSHOT.jar "yourLogsFileName.txt" 
 
 for example: java -jar taMobilitySpeedProjo-1.0-SNAPSHOT.jar "logsFile.txt" 
 
